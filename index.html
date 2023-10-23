@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="types.css">
+    <title>Pokedex</title>
+</head>
+<body>
+    
+
+    <div class="main">
+        <div >
+            <h1>POKÉDEX</h1>
+        </div>
+    </div>
+
+    <div class="pesquisa">  
+        <input id="input-pesquisa" type="text" placeholder="Nome ou número">
+        <div class="img" id="btn-pesquisa"><img src="image/lupa-de-pesquisa.png" alt=""></div>
+    </div>
+    
+    <div class="main">
+    
+        <div class="boxs-pokemon">
+            
+            
+            
+        </div>
+    </div>
+   
+
+
+    <script>
+
+        pokedex(151);
+        
+        
+        
+        
+        function pokedex(quantidade){
+            var boxs_pokemon = document.querySelector(".boxs-pokemon");
+            boxs_pokemon.innerHTML="";
+
+            
+            fetch("https://pokeapi.co/api/v2/pokemon?limit="+quantidade+"&offset=0").then(response=> response.json()).then(allpokemon=>{
+
+                var pokemon=[];
+                var pokemons=[];
+                
+                allpokemon.results.map((val)=>{
+                    
+                    
+
+                    fetch(val.url).then(response=>response.json()).then(pokemonsingle=>{
+                    
+                        types=[];
+                        tipos=[];
+                        types.push(pokemonsingle.types);
+                        
+                        
+                        types.forEach(item => {
+                            item.forEach(tipo=>{tipos.push(tipo.type.name)
+                            })
+                            pokemon.push({
+                                "nome": val.name,
+                                "id": pokemonsingle.id,
+                                "imagem": pokemonsingle.sprites.front_default,
+                                "tipo": tipos,
+                            });
+                            
+                            
+                            if(pokemon.length==quantidade){
+                                
+                                for(var i = 0; i<=quantidade; i++){
+                                    pokemon.map(function(val){   
+
+                                        if(val.id == i){
+
+                                            if(val.tipo[1]){
+                                            boxs_pokemon.innerHTML+=`
+                                        
+                                            <div onmouseover="porCima(this)" onmouseout="porFora(this)" class="box-pokemon">
+                                                <a href="#">
+                                                    <img src="${val.imagem}" alt="">
+                                                    <p class="id">N° 0${val.id}</p>
+                                                    <h3 class="name">${val.nome}</h3>
+                                                    <div class="tipos">
+                                                        <p class="type1 ${val.tipo[0]}">${val.tipo[0]}</p>
+                                                        <p class="type2 ${val.tipo[1]}">${val.tipo[1]}</p>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        
+                                            `
+                                            
+                                            }else{
+                                                boxs_pokemon.innerHTML+=`
+                                            <div onmouseover="porCima(this)" onmouseout="porFora(this)" class="box-pokemon">
+                                                <a href="#">
+                                                    <img src="${val.imagem}" alt="">
+                                                    <p class="id">N° 0${val.id}</p>
+                                                    <h3 class="name">${val.nome}</h3>
+                                                    <div class="tipos">
+                                                        <p class="type1 ${val.tipo[0]}">${val.tipo[0]}</p>
+                                                    </div>
+                                                <a>
+                                            </div>
+                                            ` 
+                                            };
+                                        };    
+                                    });
+                                };
+                            };
+                    
+
+                        });
+
+                        
+                        
+                    });
+                    
+                
+                            
+                });
+                
+
+        
+    
+            });
+        };    
+
+        function porCima(obj)
+        {
+            obj.style.margin = "20px 3% 60px";
+            
+        }
+        
+        function porFora(obj)
+        {
+            obj.style.margin = "40px 3% 40px"; 
+            
+        }
+
+        function isNumber(n) {
+            return !isNaN(parseFloat(n)) && isFinite(n);
+        }
+
+        var btn_pesquisa = document.querySelector("#btn-pesquisa");
+        btn_pesquisa.addEventListener("click", ()=>{
+            input_pesquisa = document.querySelector("#input-pesquisa");
+            
+            
+            
+            fetch("https://pokeapi.co/api/v2/pokemon/"+input_pesquisa.value).then(response=> response.json()).then(pokemon=>{    
+                var boxs_pokemon = document.querySelector(".boxs-pokemon");
+                boxs_pokemon.style.justify_content= "start; !important";
+
+               
+                console.log(pokemon)
+                if(pokemon.types.length == 2){
+                    
+                    
+                    boxs_pokemon.innerHTML="";
+                    boxs_pokemon.innerHTML+=`
+                
+                    <div onmouseover="porCima(this)" onmouseout="porFora(this)" class="box-pokemon">
+                        <a href="index.html">
+                            <img src="${pokemon.sprites.front_default}" alt="">
+                            <p class="id">N° 0${pokemon.id}</p>
+                            <h3 class="name">${pokemon.name}</h3>
+                            <div class="tipos">
+                                <p class="type1 ${pokemon.types[0].type.name}">${pokemon.types[0].type.name}</p>
+                                <p class="type2 ${pokemon.types[1].type.name}">${pokemon.types[1].type.name}</p>
+                            </div>
+                        </a>
+                    </div>
+                
+                    `
+                    
+                    }else{
+                        
+                        
+                        boxs_pokemon.innerHTML="";
+                        boxs_pokemon.innerHTML+=`
+                    <div onmouseover="porCima(this)" onmouseout="porFora(this)" class="box-pokemon">
+                        <a href="index.html">
+                            <img src="${pokemon.sprites.front_default}" alt="">
+                            <p class="id">N° 0${pokemon.id}</p>
+                            <h3 class="name">${pokemon.name}</h3>
+                            <div class="tipos">
+                                <p class="type1 ${pokemon.types[0].type.name}">${pokemon.types[0].type.name}</p>
+                            </div>
+                        <a>
+                    </div>
+                    ` 
+                    };
+                
+            });
+    
+            input_pesquisa.value = ""   
+        }) 
+        
+
+        
+    </script>
+</body>
+</html>

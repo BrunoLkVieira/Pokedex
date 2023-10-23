@@ -1,0 +1,187 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font: inherit;
+    
+}
+
+
+body{
+    background-image: url(https://assets.pokemon.com/static2/_ui/img/chrome/body_bg.png);
+}
+
+.main{
+    background-color: rgb(255, 255, 255);
+    max-width: 1300px;
+    margin: 0 auto ;
+    padding: 0 100px ;
+    text-align: center;
+    background-image: url(https://assets.pokemon.com/static2/_ui/img/chrome/container_bg.png);
+    
+
+}
+
+.main h1{
+    color: rgb(148, 147, 147);
+    box-sizing: border-box;
+    font-size: 30px;
+    padding: 20px 0;
+    background-color: white;
+}
+
+.pesquisa{
+    background: #313131;
+    margin: 0 auto ;
+    max-width: 1300px;
+    padding: 30px 0;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    
+    border-bottom: 40px solid rgb(82, 82, 82);
+}
+
+.pesquisa input{
+    width: 370px;
+    height: 40px;
+    margin-right: 20px;
+    border: 3px solid gray;
+    padding-left: 7px;
+}
+.img{
+    background-color: #ee6b2f;
+    padding: 8px 8px 5px 8px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.img img{
+    width: 23px;
+
+}
+
+.boxs-pokemon{
+    padding: 0 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-around;
+    background-color: white;
+    
+
+}
+
+.box-pokemon{
+    max-width: 19%;
+    margin: 40px 3% 40px;
+    text-align: start;
+    cursor: pointer;
+   
+}
+
+.box-pokemon a{
+    color: black;
+    text-decoration: none;
+}
+
+.box-pokemon img{
+    width: 200px;
+    background-color: #F2F2F2;
+    border-radius: 7px;
+    
+}
+
+.id{
+    font-size: 15px;
+    margin-bottom:15px;
+    color: #919191;
+}
+.name{
+    font-size: 25px;
+    margin-bottom:5px;
+}
+
+.tipos{
+    display: flex ;
+    justify-content: start;
+    
+}
+
+.type1{
+    
+    padding: 1px 25px;
+    border-radius: 3px;
+    margin-right: 4px;
+}
+
+.type2{
+    
+    padding: 1px 25px;
+    border-radius: 3px;
+
+}   
+
+
+
+@media screen and (max-width: 1200px) {
+
+    .boxs-pokemon{
+        justify-content: center;
+    }
+
+    .box-pokemon{
+        max-width: 30%;
+        
+    }
+}
+
+@media screen and (max-width: 890px) {
+    .box-pokemon{
+        max-width: 50%;
+        
+    }
+}
+
+
+
+@media screen and (max-width: 660px) {
+
+    .main{
+        padding:0;
+    }
+
+    .boxs-pokemon{
+        box-sizing: border-box;
+    }
+
+    .box-pokemon{
+
+        width: 100%;
+        padding: auto;
+        text-align: center;
+   }
+   .box-pokemon img{
+    text-align: center;
+   }
+
+   .tipos{
+    text-align: center;
+    justify-content: center;
+   }
+        
+   
+
+}
+
+@media screen and (max-width: 500px) {
+
+
+    #input-pesquisa{
+        width: 200px;
+    }
+    .box-pokemon img{
+        width: 150px;
+       }
+    
+   
+
+}
